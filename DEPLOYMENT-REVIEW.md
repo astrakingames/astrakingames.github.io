@@ -35,3 +35,17 @@ The generated pages intentionally show a draft warning and carry `noindex` until
 - **Website QA.** Chromium checks of the reviewed page layouts passed at 320, 390, 700, 768 and 1280 px. Navigation, internal links, assets and the game fragment resolved locally. External Google documentation links resolved. The email action check exercised the link and decoded recipient, subject and body. Mail delivery and account deletion fulfillment remain open.
 
 Source references in the game project include `scripts/store/purchase_manager.gd`, `scripts/account/account_view.gd`, `backend-dotnet/src/PepperPuff.Api/Accounts.cs`, `backend-dotnet/src/PepperPuff.Api/Data/Database.cs` and `backend-dotnet/tests/PepperPuff.Api.Tests/Integration.cs`.
+
+## Synthetic deletion verification
+
+Status: blocked. This review has no confirmed synthetic release account, verified access to the actual support mailbox, or authorized operation for deleting that account through the intended backend. No request was sent and no account was deleted. The signed Internal testing build 0.24.9 (34) has public accounts and purchases disabled. Testing purchase authentication and in-game deletion requires the intended Android build with those features enabled and an authorized test environment.
+
+The studio needs to identify the responsible mailbox operator and backend operator. For the synthetic test, record a request ID, timestamps for sending, receipt and completion, how ownership was verified without opening the game, who executed the authorized deletion, and sanitized before/after checks for the identity, sessions, saves, and entitlements. Confirm the requester receives the completion notice. For missing mail, failed verification or backend errors, keep the request pending, record the failure and notify the requester of the next step. Send a completion notice only after checking the backend outcome. These are proposed handling steps until the operators validate them.
+
+| Records | Current evidence | Outstanding verification |
+| --- | --- | --- |
+| Deleted player record and linked completion entry | Retained by QA deletion | Legal basis, period and purge mechanism |
+| Purchase verification rows and proof hashes | QA retains rows and clears the user reference | Legal basis, period and purge mechanism |
+| Hosting and access logs | Production configuration unverified | Data recorded, legal basis, period and purge mechanism |
+| Backups | Production handling unverified | Retention, expiry, access and reapplication of deletions after restore |
+| Support email and deletion correspondence | Actual mailbox retention unverified | Responsible operator, legal basis, period and deletion procedure |
